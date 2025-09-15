@@ -1,0 +1,3 @@
+Name: Andres Bracho-Valles
+Kali Plan: qemu-kvm virtual machine (linux version too recent for VMware)
+VM Status: up and running
