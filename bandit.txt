@@ -1,0 +1,25 @@
+bandit 0: we saw the solution class. Simply login into: ssh -p 2220 bandit0@bandit.labs.overthewire.org (using the  password bandit0) and then use cat to look at the readme contents which contain the bandit1 password
+
+bandit 1: ssh into bandit1, login with the password and display the contents of the "-" file. It's a bit tricky to get this to show because many unix commands use "-", so simply specify it is a file on the current directory by using "cat ./-" and copy the password
+
+bandit 2: ssh into bandit 2, login with password and display the contents of "--spaces in this filename--." Again since this starts with "-" you'd need to use "./" preceding the dash to tell the computer that it is a file in the current directory and not a command. As for the long text name, just use quotations around it to specify that it's a single name. Example: cat ./"--spaces in this filename"
+
+bandit 3: ssh into bandit 3, login with password. use "cd inhere" to enter the directory where the file containing the password is, then use "ls -la" to show all files in it, including hidden files and just use cat like so: cat ..Hiding-From-You. copy the password
+
+bandit 4: ssh into bandit 4, login with password. use "cd inhere" to enter the directory. and you'll find files "-file00" through "-file09", I went through each one until I found one that was human readable (using cat and remembering to put "./" before each file name) it ended up being -file07
+
+bandit 5: ssh into bandit 5, login with password. cd into "inhere" and type the command "ls -laR" which shows the contents of the current directory and all its subdirectories, i then used "find | grep "1033" to find the filename of the right file (which was .file2) and then looked at the results of the grep for a non executable (not colored) file of size 1033 that was named .file2, then used cat to see the password and copy it
+
+bandit 6: ssh into bandit 6, login with password. "cd .." into "/home" and "cd .." again to get into the parent directory. again use ls -laR, but this time pipe it into grep like so "ls -laR | grep '33'" and find the file name bandit7.password, then "find | grep "bandit7.password" to find its location, which is at "/var/lib/dpkg/info/" and then simply display its contents with cat. copy the password.
+
+bandit 7: ssh into bandit 7 login with password. per the instructions, the password is in the data.txt file there next to the word million. Simply "cat data.txt | grep "millionth""to get the line containing the password.
+
+bandit 8: ssh into bandit 8, login with password. The instructions state that the correct password is in the data.txt file, and it is the only sequence that doesn't repeat. type "sort -R data.txt | uniq -c." this will display every sequence in the file and the one with a "1" next to it is the correct password that you should copy. "sort -R data.txt" will randomly sort the sequences in the file, but it will ensure that identical sequences are grouped together, which is great because uniq -q (which displays each sequence only once  and the modifier -q shows a counter next to it of how many times that sequence occurs) only works if the sequences are grouped together.
+
+bandit 9: ssh into bandit 9, login with password. The instructions state the password is one of the few human readable characters in data.txt and that is it preceded by several "="characters, so use "string data.txt" to me it was immediately obvious what the password was, but if in your case it isn't simply pipe that command into to "grep '===='" 
+
+bandit 10: ssh into bandit 10, login with password. The instructions state that the password is in the base64 encoded data.txt file, simple do "base64 -d data.txt" where -d tells the computer to decode the file using base64, the password will be output very evidently
+
+bandit 11: ssh into bandit 11, login with password. Use the link into the rot 13 wikipedia page in the instructions and find the spot where it discusses how to implement it using tr. Use the same command but with the string inside data.txt. You should type this in "tr 'A-Za-z' 'N-ZA-Mn-za-m' <<< Gur cnffjbeq vf 7k16JArUVv5LxVuJfsSVdbtaHGlw9D4" and you'll getthe right password
+
+***note to self: https://man7.org/linux/man-pages/index.html was very useful***
