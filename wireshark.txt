@@ -1,0 +1,34 @@
+===== DAYTIME =====
+1) Three way handshake 
+	1	0.000000000	192.168.122.57	129.6.15.29	TCP	74	60394 → 13 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM TSval=3959050322 TSecr=0 WS=128
+	2	0.045241909	129.6.15.29	192.168.122.57	TCP	66	13 → 60394 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1382 WS=64 SACK_PERM
+	3	0.045327381	192.168.122.57	129.6.15.29	TCP	54	60394 → 13 [ACK] Seq=1 Ack=1 Win=64256 Len=0
+
+2) Source port 60394
+
+3) It provides a unique number (the port) for the nc application to be used with the same IP address other applications would use on the machine
+
+4) 4	0.087451940	129.6.15.29	192.168.122.57	DAYTIME	105	DAYTIME Response
+
+5) SYN means a synchronization packet (to set up a connection) and ACK means acknowledgment packet (to signal that a packet was received)
+
+6) In my wireshark it was the server firsst, then the client acknowledged and initiated its own closing of TCP
+	5	0.087452656	129.6.15.29	192.168.122.57	TCP	54	13 → 60394 [FIN, ACK] Seq=52 Ack=1 Win=66368 Len=0
+	6	0.087537152	192.168.122.57	129.6.15.29	TCP	54	60394 → 13 [ACK] Seq=1 Ack=52 Win=64256 Len=0
+	7	0.088158962	192.168.122.57	129.6.15.29	TCP	54	60394 → 13 [FIN, ACK] Seq=1 Ack=53 Win=64256 Len=0
+	8	0.134285803	129.6.15.29	192.168.122.57	TCP	54	13 → 60394 [ACK] Seq=53 Ack=2 Win=66304 Len=0
+
+
+===== HTTP =====
+1) There's two TCP connections, because there's two [SYN] packages from the source that dont go along with a [ACK] package.
+
+2) 5	0.024785015	192.168.122.57	172.233.221.124	HTTP	404	GET /index.html HTTP/1.1 
+
+3) 11	0.112890523	192.168.122.57	172.233.221.124	HTTP	443	GET /jeff-square-colorado.jpg HTTP/1.1 
+
+
+===== QUESTIONS =====
+1) Why are both the client and the host trying to end the connection? Shouldn't one be aware that the other is trying to do it and therefore not send its own [FIN] packet? 
+
+2) When the client requests the webpage's html file, why is it 404 GET? isn't 404 an error code? Is that not the case in this instance?
+
