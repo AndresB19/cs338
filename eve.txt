@@ -1,0 +1,48 @@
+Diffie Hellman
+- The shared secret between Alice and Bob is 31
+- The process I followed to get that was:
+	- Knowing g = 5, p = 103, Bob's number (B = 71), and Alice's number (A = 10)
+	- I set up the equation for figuring out Alice's individual secret x:
+		- g**x%103 = A
+		- Which is 5**x%103 = 10
+		- here we can try different values of x by hand (or write a little python 
+		  script) to brute force our way to get x
+		- Eventually I found out x = 45
+	- We can follow the same process above to instead find Bob's secret y:
+		- y = 67
+	- Now we can either use Bob's or Alice's info to get the secret 
+	  (or both tt check if it's correct):
+	  	- Alice = B**x%103 = 71**45%103 = secret = 31
+		- Bob = A**y%103 = 10**67%103 = secret = 31
+	- This way we find that their secret is 31
+- The process would've failed or taken much longer if we had much largers integers, 
+  this is because at the stage when we're calculating Alice's secret x or Bob's secret y
+  the brute force approach to figuring them out (the only way with our information) could 
+  take a reaaally long time
+
+RSA
+- Message: Hey Bob, here s some cryptography history for you (https://en.wikipedia.org/
+  wiki/The_Magic_Words_are_Squeamish_Ossifrage). Happy factoring, Alice.
+- For starters we need Bob's private key (d_b, n_b), and we already know n_b. 
+  I grabbed the n_b of Bob's public key and tried to find p_b and q_b from
+  it. 
+  - We know that n_b is the product of the two prime numbers p_b and q_b, so i wrote a
+    python script to try every prime number from 1 to 1000 (just a guess) and to print
+    out both factors only if they were both prime and obviously is their product was
+    n_b (which is 266473 btw).
+  - As a result I got that p_b = 607 and that q_b = 439
+  - Since we already know e_b from Bob's public key, we now have to find lambda(n_b)
+    which is calculated using lcm(p_b -1, q_b -1), or lcm(606, 438)
+    - The result of this is lambda(n_b) = 44238
+  - Now we need to find the last piece for Bob's private key, d_b. We know that
+    e_b * d_b % lambda(n_b) = 1, so we can just make a little script to brute force
+    our search until we find the right d_b
+    - We find d_b = 10409
+- If the Integers were much larger my approach would've failed because it would've
+  taken too much computation power to find the prime factors of n_b and the some more
+  to use the brute force approach of figuring out d_b
+- If Bob's key had larger integers Alice's message would be a lot safer since it wouldn't
+  be so easy to brute force finding the Bob's private key using computation power and it
+  would've been a lot harder to figure out that i had to convert each integer to however
+  many bytes I had to for getting the final message (2 bytes in this case)
+  
