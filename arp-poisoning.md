@@ -12,7 +12,7 @@ e. Kali's routing table: ![Kali routing table](images/kaliRoute.png)
 
 f. Kali's ARP cache: ![Kali arp](images/kaliArp.png)
 
-g. Metasploitable's routing table: ![meta routing table](images/metaRoute.png)
+g. Metasploitable's routing table: ![meta routing table](images/metaRouting.png)
 
 h. Metasploitable's ARP cache: ![meta arp](images/metaArp.png)
 
