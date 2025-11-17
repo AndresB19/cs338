@@ -1,4 +1,4 @@
-# Execution
+# Execution (this is for my own notes and understanding)
 
 a. The Kali interface's MAC address is - 52:54:00:1c:d7:2d
 
@@ -16,4 +16,10 @@ g. Metasploitable's routing table: ![meta routing table](images/metaRouting.png)
 
 h. Metasploitable's ARP cache: ![meta arp](images/metaArp.png)
 
-j. 
+i. To the MAC address: 52:54:0d:42:59 (the host machines)
+
+j. I captured no packages
+
+k. I did these steps 
+
+l. yes. It changed its gateway MAC to the Kali VM
